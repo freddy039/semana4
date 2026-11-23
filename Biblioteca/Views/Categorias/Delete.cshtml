@@ -1,0 +1,23 @@
+@model Biblioteca.Models.Categoria
+<h2>Eliminar Categoria</h2>
+<p>¿Deseas eliminar este registro definitivamente?</p>
+<p>
+    <strong>CategoriaId:</strong> 
+    @Model.CategoriaId</p>
+    <p>
+        <strong>Nombre:</strong> 
+        @Model.Nombre</p>
+        <p>
+            <strong>Descripcion:</strong> 
+            @Model.Descripcion</p>
+            <p>
+                <strong>Estado:</strong> @Model.Estado</p>
+                <p>
+                    <strong>Codigo:</strong> 
+                    @Model.Codigo</p>@if(ViewBag.Error != null) { 
+                        <p class="error">@ViewBag.Error</p> }
+                        <form asp-action="Delete" asp-route-id="
+                        @Model.CategoriaId" method="post">
+                        @Html.AntiForgeryToken()
+                        <button class="red" type="submit">Sí, eliminar</button> 
+                        <a class="btn gray" asp-action="Index">Cancelar</a></form>

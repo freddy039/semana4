@@ -1,0 +1,25 @@
+@model IEnumerable<Biblioteca.Models.Estudiante>
+<h2>Estudiantes</h2>
+<a class="btn" asp-action="Create">+ Nuevo registro</a>
+<div class="scroll"><table>
+    <thead><tr><th>EstudianteId</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Carrera</th>
+    <th>Correo</th>
+    <th>Acciones</th></tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model) {
+            <tr>
+                <td>@item.EstudianteId</td>
+                <td>@item.Nombre</td>
+                <td>@item.Apellido</td>
+                <td>@item.Carrera</td>
+                <td>@item.Correo</td>
+                <td><div class="actions"><a class="btn orange" asp-action="Edit" asp-route-id="@item.EstudianteId">Editar</a><a class="btn gray" asp-action="Details" asp-route-id="@item.EstudianteId">Ver</a><a class="btn red" asp-action="Delete" asp-route-id="@item.EstudianteId">Eliminar</a></div></td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

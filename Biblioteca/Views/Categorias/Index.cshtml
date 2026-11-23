@@ -1,0 +1,36 @@
+@model IEnumerable<Biblioteca.Models.Categoria>
+<h2>Categorias</h2>
+<a class="btn"
+   asp-action="Create">+ Nuevo registro</a>
+   <div class="scroll">
+    <table>
+        <thead>
+            <tr>
+                <th>CategoriaId</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Estado</th>
+                <th>Codigo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model) {
+            <tr>
+                <td>@item.CategoriaId</td>
+                <td>@item.Nombre</td>
+                <td>@item.Descripcion</td>
+                <td>@item.Estado</td>
+                <td>@item.Codigo</td>
+                <td>
+                    <div class="actions">
+                        <a class="btn orange" asp-action="Edit" asp-route-id="@item.CategoriaId">Editar</a>
+                        <a class="btn gray" asp-action="Details" asp-route-id="@item.CategoriaId">Ver</a>
+                        <a class="btn red" asp-action="Delete" asp-route-id="@item.CategoriaId">Eliminar</a>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

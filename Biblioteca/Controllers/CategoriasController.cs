@@ -1,0 +1,46 @@
+using Biblioteca.Data;
+using Biblioteca.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+namespace Biblioteca.Controllers;
+public class CategoriasController(BibliotecaContext db) : Controller
+{
+    public async Task<IActionResult> Index() => View(await db.Categorias.ToListAsync());
+    public IActionResult Create() => View();
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(Categoria item)
+    {
+        if (!ModelState.IsValid) return View(item);
+        db.Categorias.Add(item); await db.SaveChangesAsync(); return RedirectToAction(nameof(Index));
+    }
+    public async Task<IActionResult> Edit(int id)
+    {
+        var item = await db.Categorias.FindAsync(id);
+        return item == null ? NotFound() : View(item);
+    }
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, Categoria item)
+    {
+        if (id != item.CategoriaId) return BadRequest();
+        if (!ModelState.IsValid) return View(item);
+        db.Categorias.Update(item); await db.SaveChangesAsync(); return RedirectToAction(nameof(Index));
+    }
+    public async Task<IActionResult> Details(int id)
+    {
+        var item = await db.Categorias.FindAsync(id);
+        return item == null ? NotFound() : View(item);
+    }
+    public async Task<IActionResult> Delete(int id)
+    {
+        var item = await db.Categorias.FindAsync(id);
+        return item == null ? NotFound() : View(item);
+    }
+    [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var item = await db.Categorias.FindAsync(id);
+        if (item == null) return NotFound();
+        try { db.Categorias.Remove(item); await db.SaveChangesAsync(); return RedirectToAction(nameof(Index)); }
+        catch (DbUpdateException) { ViewBag.Error = "No se puede eliminar porque tiene registros relacionados."; return View("Delete", item); }
+    }
+}
